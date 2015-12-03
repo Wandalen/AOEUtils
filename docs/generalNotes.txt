@@ -1,0 +1,31 @@
+=== Fixed size strings ===
+
+Age of Empires, Age of Empires 2, and Star Wars: Galactic Battlegrounds
+all insert random characters after the first null ('\0') character
+in the string. You can safely ignore the random characters.
+
+These random characters may contain partial scenario names, random gibberish,
+partial unit names, etc. Presumably, this is because the fixed string's buffer
+is reused for multiple purposes in the game, and is not properly cleared
+before being written to disc.
+
+
+=== Notation ===
+
+Data lengths: they specify both the length of the data and
+how to interpret it. For example:
+
+s32 is a signed 32-bit integer.
+
+u16 is an unsigned 16-bit integer.
+
+f32 is a floating point 32-bit number.
+
+c4 is a 4-byte character string.
+
+40 means 40 bytes of data.
+
+fs256 means a fixed size string of 256 characters. You should ignore all
+data after the first null character. (hex value of 0x00)
+
+n*520 is an array of 'n' elements, each of which are 520 bytes long.

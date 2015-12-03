@@ -1,0 +1,70 @@
+=== Introduction ===
+
+The campaign format is shared by Age of Empires I, Age of Empires II, and 
+Star Wars: Galactic Battlegrounds. Every file has a 4-character version
+string at the very beginning.
+
+
+The basic layout of the campaign file is:
+=====================
+| File Header       |
+| Scenario metadata |
+| Raw scenarios     |
+=====================
+
+The file header is always 264 bytes long. Thus, the scenario metadata
+begins at position 108 (hex) or 264 in the file stream.
+
+Raw scenarios contain both the uncompressed scenario file header
+and the compressed scenario data. (see "scenario_format.txt for
+the format)
+
+=== Notes ===
+
+Unfortunately, the version number at the start of the file is not very useful,
+as all games and versions (even AoE alpha) share the same version number of 1.00.
+Thus, if you're trying to determine what game the campaign was made for,
+you will need to be able to decode the scenarios inside the campaign.
+
+==== Header =====
+
+Length | Offset | Description
+---------------------------------------------------------------------
+c4     | 0x00   | Version (ASCII): 1.00
+fs256  | 0x04   | Campaign name
+u32    | 0x104  | Scenarios count (variable 'n' used below)
+
+
+==== Scenario metadata ====
+
+Length | Description
+---------------------------------------------------------------------
+n*520  | Scenarios, see sub-struct below (starts at #108)
+
+Sub-struct, ScenarioInfo:
+
+Length | Description
+---------------------------------------------------------------------
+u32    | Size of the raw scenario data
+u32    | Absolute offset of the raw scenario data
+fs255  | ASCII, Scenario name (null terminated)
+fs257  | ASCII, Filename (null terminated)
+
+
+=== Scenarios ===
+
+Length | Description
+---------------------------------------------------------------------
+n*var  | Raw scenario data (includes both uncompressed header and
+         compressed data). 'var' is given by the size field from the
+         scenario metadata at index 'n'.
+
+
+
+
+
+
+=== References ===
+The 'cpndescr.txt' provided by the tool cpnbuild, available from
+http://aoe.heavengames.com/downsnew/dwnutils.shtml
+

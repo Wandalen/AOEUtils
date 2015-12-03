@@ -1,0 +1,15 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://raw.github.com/stefan-kolb/aoc-mgx-format/master/references/mgx_format_total.html
+https://github.com/stefan-kolb/aoc-mgx-format

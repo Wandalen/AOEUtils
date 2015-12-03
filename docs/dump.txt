@@ -1,0 +1,286 @@
+Flatgrass scenario
+U1: 60
+U2: 60
+U3: 2
+U4: 0
+U5: 0 0 0 0 0 0 0 0
+U6: null
+U7: 0 0 0 0 0 0 0
+U8: -1
+
+
+
+Now time to find what these mean!
+Unknown1: Default camera X? Nope.
+Unknown2: Default camera Y? Nope.
+Unknown3: could be a count?
+
+D:Age of Empires 2\Scenario\!3 Mansion Island.scx
+D:Age of Empires 2\Scenario\!3 Mansion Island2.scx
+
+All players
+=========================
+U5: 
+00 00 00 06 
+00 00 00 00 (could this possibly be two unsigned ints?)
+U6: 
+FF FF FF FF
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+07 00 00 00
+63 00 00 00
+FF FF FF FF
+FF FF FF FF
+0A 01 00 00
+00 00 00 00
+
+
+D:Age of Empires 2\Scenario\BJW-Babarossa1 v2.scx
+
+All players
+=========================
+U5: 
+00 00 00 06 
+00 00 00 00 (could this possibly be two unsigned ints?)
+U6: 
+FF FF FF FF
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+07 00 00 00
+63 00 00 00
+FF FF FF FF
+FF FF FF FF
+0A 01 00 00
+00 00 00 00
+
+
+D:Age of Empires 2\Scenario\C3_Montezuma_1.scx
+
+All players
+=========================
+U5: 
+00 00 00 06 
+00 00 00 00 (could this possibly be two unsigned ints?)
+U6: 
+FF FF FF FF
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+07 00 00 00
+04 00 00 00
+FF FF FF FF
+FF FF FF FF
+0A 01 00 00
+00 00 00 00
+
+
+D:Age of Empires 2\Scenario\Cave of Doom.scx
+
+All players
+=========================
+U5: 
+00 00 00 06 
+00 00 00 00 (could this possibly be two unsigned ints?)
+U6: 
+FF FF FF FF
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+07 00 00 00
+63 00 00 00
+FF FF FF FF
+FF FF FF FF
+08 01 00 00
+00 00 00 00
+
+
+D:Age of Empires 2\Scenario\Chess v2 beta (Unfinished).scx
+
+All players
+=========================
+U5: 
+00 00 00 06 
+00 00 00 00 (could this possibly be two unsigned ints?)
+U6: 
+FF FF FF FF
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+07 00 00 00
+63 00 00 00
+FF FF FF FF
+FF FF FF FF
+0A 01 00 00
+00 00 00 00
+
+
+D:Age of Empires 2\Scenario\gte.scx
+
+All players
+=========================
+U5: 
+00 00 00 06 
+00 00 00 00 (could this possibly be two unsigned ints?)
+U6: 
+FF FF FF FF
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+07 00 00 00
+0A 00 00 00
+FF FF FF FF
+FF FF FF FF
+08 01 00 00
+00 00 00 00
+
+
+D:Age of Empires 2\Scenario\gvict1.scx
+
+All players
+=========================
+U5: 
+00 00 00 06 
+00 00 00 00 (could this possibly be two unsigned ints?)
+U6: 
+FF FF FF FF
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+07 00 00 00
+0A 00 00 00
+FF FF FF FF
+FF FF FF FF
+0A 01 00 07
+00 00 00 00
+
+FF FF FF FF
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+64 00 00 00
+FF FF FF FF
+FF FF FF FF
+08 01 00 00
+00 00 00 00
+
+
+D:Age of Empires 2\Scenario\Island Competition version 2.scx
+
+All players
+=========================
+U5: 
+00 00 00 06 
+00 00 00 00 (could this possibly be two unsigned ints?)
+U6: 
+FF FF FF FF
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+07 00 00 00
+63 00 00 00
+FF FF FF FF
+FF FF FF FF
+08 01 00 00
+00 00 00 00
+
+
+D:Age of Empires 2\Scenario\Oliver's Unfinished Scenarios - Some Map (Requires Renaissance).scx
+
+All players
+=========================
+U5: 
+00 00 00 06 
+00 00 00 00 (could this possibly be two unsigned ints?)
+U6: 
+FF FF FF FF
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+07 00 00 00
+63 00 00 00
+FF FF FF FF
+FF FF FF FF
+0A 01 00 00
+00 00 00 00
+
+
+D:Age of Empires 2\Scenario\Sim Age Of Empires V3.scx
+
+All players
+=========================
+U5: 
+00 00 00 06 
+00 00 00 00 (could this possibly be two unsigned ints?)
+U6: 
+FF FF FF FF
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+07 00 00 00
+03 00 00 00
+FF FF FF FF
+FF FF FF FF
+0A 01 00 00
+00 00 00 00
+
+
+D:Age of Empires 2\Scenario\the calm and impossible game.scx
+
+All players
+=========================
+U5: 
+00 00 00 06 
+00 00 00 00 (could this possibly be two unsigned ints?)
+U6: 
+FF FF FF FF
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+07 00 00 00
+63 00 00 00
+FF FF FF FF
+FF FF FF FF
+0A 01 00 00
+00 00 00 00
+
+
+D:Age of Empires 2\Scenario\tigee.scx
+
+All players
+=========================
+U5: 
+00 00 00 06 
+00 00 00 00 (could this possibly be two unsigned ints?)
+U6: 
+FF FF FF FF
+00 00 00 00
+00 00 00 00
+00 00 00 00
+00 00 00 00
+07 00 00 00
+63 00 00 00
+FF FF FF FF
+FF FF FF FF
+0A 01 00 00
+00 00 00 00
+
+
+
+
+D:Age of Empires 2\Scenario\WORLD CONQUEST - Computer Ally.scx (CAUSES PROBLEMS)
+

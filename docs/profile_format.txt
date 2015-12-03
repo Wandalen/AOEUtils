@@ -1,0 +1,201 @@
+=== Introduction ===
+The profile file is used to store information about the progress
+of player(s) in campigns, as well as their options and settings. 
+
+=== Notes ===
+The data is stored entirely with the DEFLATE method. Thus, you must
+decompress the file fully or in chunks before you can use
+any of the information in this specification.
+
+Age of Empires 1 only has support for one player in the profile.
+
+Some campaigns are hard coded to display all scenarios as playable, even
+though the statuses of these scenarios indicates otherwise.
+
+
+=== Versions ===
+------------------------------------------
+| Ver1 | Ver2 | Description |  Filename  |
+==========================================
+| 1.00 | ---- | AoE 1       | game0.nfo  |
+| 1.00 | ---- | AoE 1: RoR  | game1.nfo  |
+| 1.04 | ---- | AoE 2       | player.nfo |
+| 1.06 | 1.11 | AoE 2: TC   | player.nfp |
+| 1.06 | 1.10 | SW: GB      | player.nfx |
+| XXXX | XXXX | SW: GB CC   | XXXXXXXXXX |
+------------------------------------------
+
+
+=== Compressed header ===
+c4     |        | Version (see table above)
+f32    |(1)1.06 | Version 2
+u32    |        | Last assigned player id
+u32    |(1)1.04?| Selected player (zero based index)
+
+
+=== Players ===
+
+u32    |        | Players count
+n*var  |        | Players, see sub-struct below.
+
+Sub-struct Player:
+fs255  |        | Player name (null terminated)
+u32    |        | Player id
+u32    |        | Unknown. Seems to be 0 or -1.
+u32    |        | Campaigns count (this is n)
+n*var  |        | Campaigns, see sub-struct below.
+522    |        | Options. (still needs some work)
+
+Sub-struct Campaign:
+fs255  |        | Name (null terminated)
+u32    |        | Unknown (Won scenarios count? Played scenarios count? last played index?)
+u32    |        | Scenarios count (this is n)
+u32    |        | Unknown (Unlocked scenarios count? Won scenarios count? last won index?)
+u32    |        | Unknown
+u32    |        | Unknown
+u8*n   |        | List of statuses (0x00 = not unlocked, 0x01 = won, 0x02 = unlocked)
+
+
+Campaign unknowns:
+When ScenariosCount is 0,
+Count1 = -1, Count2 = -1, Unknown2 = -1, Unknown1 = 0
+
+enum StartingAge {
+	Standard = 0,
+	DarkAge = 2,
+	FeudalAge = 3,
+	CastleAge = 4,
+	ImperialAge = 5,
+	PostImperialAge = 6,
+}
+
+enum VictoryType {
+	Standard = 0,
+	Conquest = 1,
+	TimeLimit = 7,
+	Score = 8,
+	LastManStanding = 11, // Multiplayer only
+}
+
+enum GameType {
+	RandomMap = 0,
+	Regicide = 1,
+	DeathMatch = 2,
+	Scenario = 3,
+	KingOfTheHill = 5,
+	WonderRace = 6,
+	DefendTheWonder = 7,
+	TurboRandomMap = 8,
+}
+
+enum MapType { (yes this is a very incomplete list)
+	Arabia = 0x09,
+	Coastal = 0x0D,
+	Mediterranean = 0x14,
+}
+
+enum DifficultyLevel {
+	Hardest = 0,
+	Hard = 1,
+	Moderate = 2,
+	Standard = 3,
+	Easy = 4,
+}
+
+enum Team {
+	NoTeam = 1,
+	Team1 = 2,
+	Team2 = 3,
+	Team3 = 4,
+	Team4 = 5,
+}
+
+Sub-Struct Player {
+u8   |     | Civilization              506
+u8   |     | Unknown(always 1E/15?)    507
+u8   |     |                           508
+u8   |     |                           509
+u8   |     |                           510
+u8   |     | Player number             511
+u8   |     |                           512
+u8   |     | Team number               513
+}
+
+// NOTE
+// My guess is that the player structure is 9 bytes long.
+// 8 players in standard, 7 in multiplayer
+// but really... who knows...
+
+
+Options: Yes my offsets are slightly kind of of messed up.
+offset 287 is the start of options.
+=================
+
+=== Default standard game options ===
+u32    | 287  | Map size (0 = tiny, 1 = small... 5 = giant)
+u32    | 291  | Map type, see enum MapType.
+u32    | 295  | Map exploration type (0 = normal, 1 = revealed, 2 = all visible)
+
+u32    | 307  | Victory type, see enum VictoryType.
+u16?   | 311  | Score required *or* time limit in years
+
+u8     | 317  | Bool: Team Together disabled
+u8     | 318  | Bool: All techs
+u32    | 319  | Starting resources (0 = standard, 1 = low, 2 = medium, 3 = high)
+u8?    | 323  | Sarting age, see enum StartingAge.
+
+u8     | 328  | Default game type, see enum GameType.
+u8     | 329  | Population limit
+fs128  | 330  | Map name (e.g. Coastal)
+XXXXXXX| 458  | Eight Player sub-structs. (to 522?)
+
+u32    | 530  | Number of players (including player 1, so '2 other' is 3)
+u32    | 534  | CPU difficulty level, see enum DifficultyLevel.
+u8     | 538  | Bool: Lock teams
+u32    | 539  | Default standard game player index? Not entirely sure.
+
+
+=== Default multiplayer game options ===
+u32    | 543  | Map size (0 = tiny, 1 = small... 5 = giant)
+u32    | 547  | Map type, see enum MapType.
+u32    | 551  | Map exploration type (0 = normal, 1 = revealed, 2 = all visible)
+
+u32    | 563  | Victory type, see enum VictoryType.
+u16?   | 567  | Score required *or* time limit in years
+
+u8     | 574  | Bool: All techs
+u32    | 575  | Starting resources (0 = standard, 1 = low, 2 = medium, 3 = high)
+u8?    | 579  | Starting age, see enum StartingAge.
+
+u8     | 584  | Default game type, see enum GameType.
+u8     | 585  | Population limit
+fs128  | 586  | Map name
+XXXXXXX| 714  | Eight Player sub-structs.
+
+u32    | 777  | CPU difficulty level, see enum DifficultyLevel.
+u8     | 781  | Bool: Lock teams
+u8     | 782  | Bool: Lock speed
+
+
+
+
+
+
+so this starts from 783 in the file..
+=== Global options ===
+
+u32    | 496  | Difficulty mode (1 = hard, 3 = standard)
+u32?   | 500  | Music volume? (Seems to be broken into two parts)
+u32?   | 504  | Sound volume? (Seems to be broken into two parts)
+u8     | 508  | Scroll speed (0x6D = slowest, 0x0A = fastest) 
+u8     | 509  | Graphics detail (3 = high, 2 = medium, 1 = low)
+u16    | 510  | Display width (800, 1024, 1280, etc)
+u16    | 512  | Display height (600, 768, 1024, etc)
+u8     | 514  | Bool: Audio taunts enabled
+u8     | 515  | Bool: One click garrisoning
+u8     | 516  | Two mouse button mode (2 = two buttons, 1 = one button)
+u8     | 517  | Bool: Friend or foe colours mode
+u8     | 518  | unknown
+u8     | 519  | Bool: Statistics displayed
+u8     | 520  | Bool: Time counter displayed
+u8     | 521  | Bool: Chosen difficulty mode (The dialogue asking for 'choose mode')

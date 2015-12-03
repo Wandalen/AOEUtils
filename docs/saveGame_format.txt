@@ -1,0 +1,348 @@
+=== Introduction ===
+
+The save game data is stored entirely with the DEFLATE method.
+That is, there is no uncompressed header to at least partially
+identify which genie engine game the save game is for.
+
+Thus, you must decompress the save game file (either fully or in
+chunks, you can do it either way) before you can begin
+to process the information inside the save game file.
+
+
+=== Notes ===
+
+Decompressed game files are very large and I do not know
+a whole lot about them. They become *ridiculously* large.
+(339 kb -> 3876 kb uncompressed)
+
+=== Versions ===
+
+Main    | Secondary | Game
+--------|-----------|-----
+VER 8.6 |       7.2 | AoE 1
+VER 8.6 |      7.24 | AoE 1: RoR
+VER 9.3 |      11.5 | AoE 2
+VER 9.4 |     11.76 | AoE 2: TC
+
+
+=== Header ===
+
+Length | MinVer | Description
+---------------------------------------------------------------------
+fs8    |        | Version identifier
+f32    |        | Secondary version
+
+
+=== Ai info ===
+u32    |        | Bool: Ai data included
+var    |        | Sub-struct AiInfo, only exists if above bool is true.
+
+Sub-struct AiInfo:
+u16    |        | Unknown
+u16    |        | Number of strings (this is n)
+u32    |        | unknown2
+str32*n|        | Resource strings
+u8*6   |        | Unknown3
+var*8  |        | Ai data, see sub-struct AiData below.
+u8*104 |        | Unknown
+40*8   |        | Timers, see sub-struct AiTimer below.
+u32*256|        | Shared goal data
+u32*1024|       | Unknown
+
+Sub-struct AiTimer:
+u32    |        | Timer1
+u32    |        | Timer2
+u32    |        | Timer3
+u32    |        | Timer4
+u32    |        | Timer5
+u32    |        | Timer6
+u32    |        | Timer7
+u32    |        | Timer8
+u32    |        | Timer8
+u32    |        | Timer10
+
+
+Sub-struct AiData:
+u32    |        | Unknown
+u32    |        | Unknown2 (-1 if invalid Ai data?)
+u16    |        | Maximum rules
+u16    |        | Number of rules (this is n)
+u32    |        | unknown3
+var*n  |        | Ai rules, see sub-struct AiRule below.
+
+Sub-struct AiRule:
+u8*12  |        | Unknown
+u8     |        | Number of facts?
+u8     |        | Number of facts + action?
+u16    |        | unknown2
+var*16 |        | 16 arrays of data, see sub-struct AiRuleData below.
+
+Sub-struct AiRuleData:
+u32    |        | Type (0x01 = action, 0x02 = comparison, 0x03 = condition)
+u16    |        | Id
+u16    |        | unknown
+u32    |        | Param1
+u32    |        | Param2
+u32    |        | Param3
+u32    |        | Param4
+
+
+=== Other header data ===
+u32    |        | Unknown
+u32    |        | Game speed 1 (100 slow, 150 medium, 200 fast)
+u32    |        | Unknown2
+u32    |        | Game speed 2 (100 slow, 150 medium, 200 fast)
+f32    |        | Unknown3
+u32    |        | Unknown4
+u8*17  |        | Unknown5
+u16    |        | Player number of recorded game's owner?
+u8     |        | Number of players + 1?
+u32    |        | unknown6
+u8*12  |        | unknown7
+u8*14  |        | Unknown8
+u32*8  |        | Unknown9
+
+=== Map ===
+
+u32    |        | Map width (this is w)
+u32    |        | Map length (this is l)
+u32    |        | UnknownData count
+var*n  |        | Unknown Map Data, see sub-struct UnknownMapData below
+u16    |        | unknown
+w*l*2  |        | Terrain data, see sub-struct Terrain below
+
+Sub-struct UnknownMapData:
+u8*255 |        | Unknown
+u32*255|        | Unknown2
+u8*w*l |        | Unknown3
+u32    |        | Number of floats
+f32*n  |        | unknown floats
+u32    |        | Unknown4
+
+Sub-struct Terrain:
+u8     |        | Elevation
+u8     |        | Terrain Id/Type
+
+
+
+=== More header data ===
+u8*120 |        | Unknown
+u32    |        | Map width?
+u32    |        | Map length?
+u32*w*l|        | Unknown
+u16    |        | Unknown2
+u8*7   |        | Unknown3
+
+
+XXXXXXXXXXXXXXXXX:    Many many many unknowns things.
+
+
+
+
+var    |        | List of master objects.
+
+Sub-struct MasterObject:
+u8     |        | Object type (10, 20, 30, 70, 80)
+u16    |        | Internal unit id/type
+u16    |        | Unknown
+u16    |        | Unknown
+u16    |        | Unit class
+u8*6   |        | Unknown
+var    |        | Variable data, depending on object type. See below.
+
+Sub-struct Type70Data:
+u16    |        | Hitpoints
+f32    |        | Length of sight
+f32    |        | SizeX
+f32    |        | SizeY
+u32    |        | unknown
+f32    |        | unknown
+f32    |        | Movement rate
+u32    |        | Unknown
+f32    |        | Search radius
+
+
+
+
+=== Scenario header ===
+
+u32    |        | Next unit id
+u32    |        | 
+
+
+=== Messages and Cinematics ===
+
+u32    |(2)1.17 | String table, Instructions
+u32    |(2)1.17 | String table, Hints
+u32    |(2)1.17 | String table, Victory
+u32    |(2)1.17 | String table, Loss
+u32    |(2)1.17 | String table, History
+u32    |(1)1.21 | String table, Scouts
+str16  |        | ASCII, Instructions
+str16  |        | ASCII, Hints
+str16  |        | ASCII, Victory
+str16  |        | ASCII, Loss
+str16  |        | ASCII, History
+str16  |        | ASCII, Scouts
+str16  |        | ASCII, Pregame cinematic filename
+str16  |        | ASCII, Victory cinematic filename
+str16  |        | ASCII, Loss cinematic filename
+str16  |        | ASCII, Background filename
+u32    |        | Bool: Bitamp included
+u32    |        | Bitmap width
+s32    |        | Bitmap height
+s16    |        | Unknown, -1 if there's a bitmap, 1 otherwise
+40     |        | BITMAPINFOHEADER (Only exists if bitmap included)
+SIZE   |        | Bitmap, SIZE calculated from header.
+
+
+=== Scenario player data ===
+
+16str16|        | AI strategy, one per player (only used in AoE?)
+16str16|        | AI city plan, one per player (only used in AoE?)
+16str16|        | AI names
+16*var |        | AI files, see sub-struct below
+u32    |        | Separator (raw value: 0x9DFFFFFF)
+16*24  |        | Resources, see sub-struct below
+
+
+Sub-struct AiFile:
+u32    |        | AI strategy file text length (only used in AoE? AoE2 always 0)
+u32    |        | AI city plan file text length (only used in AoE? AoE2 always 0)
+u32    |        | AI .per file text length
+n1     |        | AI strategy file text
+n2     |        | AI city plan file text
+n3     |        | AI .per file text
+
+Sub-struct PlayerResources:
+u32    |        | Gold count
+u32    |        | Wood count
+u32    |        | Food count
+u32    |        | Stone count
+u32    |        | OreX count?
+u32    |        | "Ore6" count? Pop limit?
+
+
+=== Global victory conditions ===
+
+u32    |        | Separator (raw value: 0x9DFFFFFF)
+u32    |        | Bool: Conquest required?
+u32    |        | Number of ruins required (AoE 2 = 0)
+u32    |        | Number of relics required (AoE artifacts required)
+u32    |        | Number of discoveries required (AoE 2 = 0)
+u32    |        | Explored percentage required
+u32    |        | unknown
+u32    |        | Bool: All custom conditions need to be met
+u32    |        | Victory mode, see below
+u32    |        | Score required
+u32    |        | Time required in 10ths of year. (15,000 = 1,500 years)
+
+enum VictoryMode {
+	Standard = 0,
+	Conquest = 1,
+	Score = 2,
+	Timed = 3,
+	Custom = 4,
+}
+
+
+=== Diplomacy and Individual Victory ===
+
+16*64  |        | Per-player diplomacy, see sub-struct below
+16*720 |        | Per-player victory conditions. (not used in AoE2)
+u32    |        | Separator
+16*u32 |        | Allied vict, per-player. (all are bools)
+
+Sub-struct PlayerDiplomacy:
+16*u32 |        | Stance with each player, 0 = allied, 1 = neutral, 3 = enemy
+
+Sub-struct PlayerVictoryConditions
+12*60  |        | 12 individual victory conditions, see sub-struct below.
+
+Sub struct VictoryCondition:
+u32    |        | Unit type (e.g. catapult = 36, academy = 0)
+u32    |        | Boolean: Apply to all? (Only used for "destroy all X")
+u32    |        | Target player (1 to 8)
+u32    |        | Unknown
+u32    |        | Unknown
+u32    |        | Unknown
+u32    |        | Unknown (some sort of coordinate?)
+u32    |        | Unknown (Some sort of coordinate?)
+u32    |        | Condition type
+u32    |        | Amount
+u32    |        | Resource/Attribute type
+u32    |        | First unit Id
+u32    |        | Second unit Id
+u32    |        | Unknown
+u32    |        | Unknown
+
+
+=== Disables ===
+
+16*u32 |        | Per-player, number of disabled techs
+16*120 |        | Per-player, Disabled technology IDs (30*u32)
+16*u32 |        | Per-player, number of disabled units
+16*120 |        | Per-player, Disabled unit IDs (30*u32)
+16*u32 |        | Per-player, number of disabled buildings
+16*80  |        | Per-player, Disabled building IDs (20*u32)
+u32    |        | Unknown1
+u32    |        | Unknown2
+u32    |        | Unknown3
+u32*16 |        | Starting ages
+u32    |        | Separator (raw value: 0x9DFFFFFF)
+
+
+=== Game settings ===
+
+u32    |        | Unknown1
+u32    |        | Unknown2
+u32    |        | Map id?
+u32    |        | Difficulty level?
+u32    |        | Unknown3
+9*var  |        | Player data, see sub-struct PlayerData below
+
+Sub-struct PlayerData:
+u32    |        | Player data index (more than one player can share this with co-op mode)
+u32    |        | Player type (0x00 = invalid, 0x02 = human, 0x04 = computer)
+str32  |        | Player name (defaults to single space)
+
+
+=== Triggers ===
+f64    |        | Unknown (1.6?)
+s8     |        | Unknown2
+u32    |        | Number of triggers
+
+
+
+
+=== Other data ===
+
+u8*8   |        | Per-player, team status. (See enum below)
+u8*13  |        | Unknown
+u32    |        | Global maximum population limit
+u8     |        | Game type
+u8     |        | Bool: Diplomacy locked
+u32    |        | Pregame chat count (this is n)
+u32    |        | Unknown
+str32*n|        | Messages ("@#" + player + message)
+
+enum TeamStatus {
+	NoTeam = 1,
+	Team1 = 2,
+	Team2 = 3,
+	Team3 = 4,
+	Team4 = 5,
+}
+
+enum GameType {
+	RandomMap = 0,
+	Regicide = 1,
+	DeathMatch = 2,
+	Scenario = 3,
+	Campaign = 4,
+	KingOfTheHill = 5,
+	WonderRace = 6,
+	DefendTheWonder = 7,
+	TurboRandomMap = 8,
+}
+

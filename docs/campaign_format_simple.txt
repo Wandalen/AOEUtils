@@ -1,0 +1,83 @@
+Genie engine campaign format
+
+=== Introduction ===
+
+The campaign format is shared by Age of Empires I, Age of Empires II, and 
+Star Wars: Galactic Battlegrounds. Every file has a 4-character version
+string at the very beginning.
+
+Unfortunately, this version number is not very useful, as all the 
+aforementioned games (as well as expansion packs) share the same version 
+number of "1.00". Even AoE 1 alpha campaigns have the version 1.00.
+ 
+Thus, if you wish to determine what game the campaign was made for, your 
+progam will need to be able to decode the scenarios inside the campaign.
+
+
+=== Intro to the format ===
+
+The basic layout of the campaign file is:
+
+=====================
+| File Header       |
+| Scenario metadata |
+| Raw scenarios     |
+=====================
+
+The file header is always 272 bytes long. Thus, the scenario metadata
+begins at position 110 (hex) or 272 in the file stream.
+Raw scenarios contain both the uncompressed scenario file header
+and the compressed scenario data. (see "scenario_format.txt for
+the format)
+
+=== Notes ===
+Age of Empires and Age of Empires 2 are both guilty of inserting random
+garbage after the the first null ('\0') character in campaign names. 
+Therefore, string parsing functions must ignore all characters after the
+aforementioned null character.
+
+
+=== Notation ===
+
+A note about data lengths: they specify both the length of the data and
+how to interpret it. For example:
+
+* s32 is a signed 32-bit integer
+* u16 is an unsigned 16-bit integer
+* c4 is a 4-byte character string
+* 40 means 40 bytes of data.
+
+
+==== Header =====
+
+Length | Offset | Description
+---------------------------------------------------------------------
+c4     | 0x00   | Version (ASCII): 1.00
+256    | 0x04   | Campaign name
+u32    | 0x104  | Scenarios count (variable 'n' used below)
+
+
+==== Scenario metadata ====
+
+Length | Description
+---------------------------------------------------------------------
+n*520  | Scenarios, see sub-struct below (starts at 0x108)
+
+Sub-struct, ScenarioInfo:
+
+Length | Description
+---------------------------------------------------------------------
+u32    | Size of the raw scenario data
+u32    | Absolute offset of the raw scenario data
+255    | ASCII, Scenario name (null terminated)
+257    | ASCII, Filename (null terminated)
+
+
+=== Scenarios ===
+
+Length | Description
+---------------------------------------------------------------------
+n*var  | Raw scenario data (includes both uncompressed header and
+         compressed data). 'var' is given by the size field from the
+         scenario metadata at index 'n'.
+
