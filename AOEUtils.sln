@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+# SharpDevelop 4.4
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AoeUtils", "AoeUtils\AoeUtils.csproj", "{4014FC0F-E386-415D-8AFC-8C725F4080EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aoetest", "aoetest\aoetest.csproj", "{6354962B-8C28-41B8-924F-68F642E500C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampaignEditor", "CampaignEditor\CampaignEditor.csproj", "{7F69A795-B869-4054-A636-AD8B478ECDFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsometricGuiTests", "IsometricGuiTests\IsometricGuiTests.csproj", "{E1FE8DE7-B6EF-4FF4-B308-81A5EC0C7E0A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4014FC0F-E386-415D-8AFC-8C725F4080EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4014FC0F-E386-415D-8AFC-8C725F4080EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4014FC0F-E386-415D-8AFC-8C725F4080EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4014FC0F-E386-415D-8AFC-8C725F4080EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6354962B-8C28-41B8-924F-68F642E500C5}.Debug|Any CPU.Build.0 = Debug|x86
+		{6354962B-8C28-41B8-924F-68F642E500C5}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{6354962B-8C28-41B8-924F-68F642E500C5}.Release|Any CPU.Build.0 = Release|x86
+		{6354962B-8C28-41B8-924F-68F642E500C5}.Release|Any CPU.ActiveCfg = Release|x86
+		{7F69A795-B869-4054-A636-AD8B478ECDFC}.Debug|Any CPU.Build.0 = Debug|x86
+		{7F69A795-B869-4054-A636-AD8B478ECDFC}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{7F69A795-B869-4054-A636-AD8B478ECDFC}.Release|Any CPU.Build.0 = Release|x86
+		{7F69A795-B869-4054-A636-AD8B478ECDFC}.Release|Any CPU.ActiveCfg = Release|x86
+		{E1FE8DE7-B6EF-4FF4-B308-81A5EC0C7E0A}.Debug|Any CPU.Build.0 = Debug|x86
+		{E1FE8DE7-B6EF-4FF4-B308-81A5EC0C7E0A}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E1FE8DE7-B6EF-4FF4-B308-81A5EC0C7E0A}.Release|Any CPU.Build.0 = Release|x86
+		{E1FE8DE7-B6EF-4FF4-B308-81A5EC0C7E0A}.Release|Any CPU.ActiveCfg = Release|x86
+	EndGlobalSection
+EndGlobal

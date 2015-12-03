@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{6354962B-8C28-41B8-924F-68F642E500C5}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>aoetest</RootNamespace>
+    <AssemblyName>aoetest</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>4194304</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ionic.Zlib">
+      <HintPath>bin\Debug\Ionic.Zlib.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK">
+      <HintPath>..\..\..\OpenTK\1.0\Binaries\OpenTK\Release\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConfigFile.cs" />
+    <Compile Include="FastColour.cs" />
+    <Compile Include="FrustumCulling.cs" />
+    <Compile Include="GLUtils.cs" />
+    <Compile Include="GuiRenderer.cs" />
+    <Compile Include="IRenderTarget.cs" />
+    <Compile Include="Map.cs" />
+    <Compile Include="New Folder\TileRenderer.cs" />
+    <Compile Include="NewTileRenderers\ColoursRendererVbo.cs" />
+    <Compile Include="NewTileRenderers\LinesRendererVbo.cs" />
+    <Compile Include="NewTileRenderers\OptimisedTileRendererVbo.cs" />
+    <Compile Include="NewTileRenderers\TileRendererVbo.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Projectile.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renderer2D.cs" />
+    <Compile Include="SaveGameFile.cs" />
+    <Compile Include="TerrainHelper.cs" />
+    <Compile Include="Test.cs" />
+    <Compile Include="Test2.cs" />
+    <Compile Include="TileRenderers\ColoursGLVbo2.cs" />
+    <Compile Include="TileRenderers\LinesGLVbo2.cs" />
+    <Compile Include="TileRenderers\LinesGLVbo.cs" />
+    <Compile Include="TileRenderers\LinesGLImmediate.cs" />
+    <Compile Include="TileRenderers\LinesGLVboChunks.cs" />
+    <Compile Include="TileRenderers\TexturedGLVbo2.cs" />
+    <Compile Include="TileRenderers\TexturedGLVbo3.cs" />
+    <Compile Include="TileRenderers\TexturedGLVbo4.cs" />
+    <Compile Include="TileRenderers\TileRenderer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AoeUtils\AoeUtils.csproj">
+      <Project>{4014FC0F-E386-415D-8AFC-8C725F4080EE}</Project>
+      <Name>AoeUtils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="New Folder" />
+    <Folder Include="NewTileRenderers" />
+    <Folder Include="TileRenderers" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ProfilingSessions\Session20140126_063558.sdps" />
+    <Content Include="ProfilingSessions\Session20140206_062122.sdps" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
